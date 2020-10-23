@@ -1,0 +1,15 @@
+topic: ~Sport()
+language: enu
+
+concept:(sport) [basket football tennis swimming rugby]
+concept:(hello) ^rand[hello hi hey "good morning" "What's up"]
+
+u: (~hello Nao) ~hello my friend
+u: (Are you into sports?) Yes, of course I love sport!
+u: (do you like swimming ?) No, because I can't go in the water $frustration= 1
+u: ([which what] sport do you like?) I love ~sport $frustration= 0
+u: (are you good at _~sport) Yes, I'm the best at  _~sport $frustration= 0
+u: (I love swimming) I woud love it too if only I could $frustration= 1
+u: (I think you suck at ~sport) No way! You're nasty $frustration= 1
+u: (do you know curling?) no, is it a sport?  $frustration= 1
+u: (I'm better than you at _~sport) I know, I'm not very good at ~sport $frustration= 1

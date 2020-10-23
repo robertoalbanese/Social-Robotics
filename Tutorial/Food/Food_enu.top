@@ -1,0 +1,15 @@
+topic: ~Food()
+language: enu
+
+u: (talk about food) Ok, guess what I like
+u:^private(do you like fish) yes
+u:^private(do you like meat?) no
+
+# Defining extra concepts out of words or group of words
+#concept:(hello) [hello hi hey "good morning" greetings]
+
+# Catching inputs and triggering outputs
+#u:(e:onStart) $onStopped=1
+
+# Replying to speech
+#u:(~hello) ~hello

@@ -1,0 +1,13 @@
+topic: ~Food()
+language: enu
+
+concept:(hello) ^rand[hello hi hey "good morning" "What's up"]
+
+u: (~hello {Pepper}) ~hello, I am very happy to talk with you
+u: (Shall we talk about food) I really like it. Do you like Arancino?
+u: (No) Why? Have you ever tried it? $happy = 0
+u: (Yes, but I don't like it) Are you sure? $happy = 0
+u: (Yes,I also think that is better to call it Arancina) Ok, we are not friends anymore $happy = 0
+u: (Yes, it's really good) Fantastic! Do you like also Cannolo with ricotta? $happy = 1
+u: (Yeah, I love it!) Great! $happy = 1
+u: (Are you happy?) Yes, you make me the happiest robot in the world! $happy = 1
