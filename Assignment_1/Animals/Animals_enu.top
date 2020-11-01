@@ -5,10 +5,10 @@ concept:(animals) [dogs cats horses]
 concept:(hello) ^rand[hello hi hey "good morning" "What's up"]
 
 u: (~hello dude) ~hello folk!
-u: (Would you like to talk about animals?) Yes, I'd love it
-u: (Do you like _~animals ?) Yes, I really love _~animals $happy = 1 $fear = 0
-u: (My brother has a dog and I love it) This is so sweet $happy = 1 $fear = 0
-u: (I really love insects) Bleh, I really dislike them $fear = 1 $frustrated = 1
-u: (Do you? I'm a beekeper! Do you want to see a bee?) No, I can't even look  at them, they scare me! $fear = 1
-u: (Come on, they are beautiful. They could fly close to your arm without even touching it) Stop! $fear = 1
-u: (Don't move! There's a rat behind you!) $fear = 3
+u: ({Would you like to} talk {about} animals?) Yes, I'd love it
+u: ({Do you} like _~animals ?) Yes, I really love _~animals $happy = 1 $fear = 0
+u: ({My brother has a} dog {and I} love {it}) This is so sweet $happy = 1 $fear = 0
+u: ({I really love} insects) Bleh, I really dislike them $fear = 1 $frustrated = 1
+u: ({Do you? I'm a} beekeper! {Do you want to see a} bee?) No, I can't even look  at them, they scare me! $fear = 1
+u: ({Come on} bees are beautiful. {They could fly} close to your arm {without even touching it}) Stop! $fear = 2
+u: ({Don't move! There's a} rat {behind you!}) $fear = 3

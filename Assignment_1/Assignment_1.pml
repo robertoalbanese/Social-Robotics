@@ -12,8 +12,8 @@
     <Resources />
     <Topics>
         <Topic name="Sport_enu" src="Sport/Sport_enu.top" topicName="Sport" language="en_US" />
-        <Topic name="Food_enu" src="Food/Food_enu.top" topicName="Food" language="en_US" />
-        <Topic name="Animals_enu" src="Animals/Animals_enu.top" topicName="Animals" language="en_US" />
+        <Topic name="Food_enu" src="Food/Food_enu.top" topicName="" language="" />
+        <Topic name="Animals_enu" src="Animals/Animals_enu.top" topicName="" language="" />
     </Topics>
     <IgnoredPaths />
     <Translations auto-fill="en_US">
