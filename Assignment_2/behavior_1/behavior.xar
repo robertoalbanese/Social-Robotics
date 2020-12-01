@@ -8,9 +8,9 @@
         self.myY = 0
         self.myT = 0
 
-        self.obstacleX = 3
+        self.obstacleX = 1
         self.obstacleY = 0
-        self.obstaclePositionErrorThreshold = 1
+        self.obstaclePositionErrorThreshold = 0.5
 
     def onLoad(self):
         pass
@@ -19,13 +19,14 @@
         self.motion.moveToward(0.0, 0.0, 0.0)
 
     def onInput_X(self, string):
-        self.myX = int(string)
+        self.myX = float(string)
 
     def onInput_Y(self, string):
         self.myY = int(string)
 
     def onInput_T(self, string):
-        self.myT = int(string)
+        import math
+        self.myT = int(string)*(math.pi/180)
 
 
     def onInput_onStart(self):
@@ -63,7 +64,8 @@
         vTobs = 0
 
         while (abs(positionError.x) > self.positionErrorThresholdPos
-            or abs(positionError.y) > self.positionErrorThresholdPos):
+            or abs(positionError.y) > self.positionErrorThresholdPos
+            or abs (positionError.theta) > self.positionErrorThresholdAng):
             if (abs(obstacleDistance) < self.obstaclePositionErrorThreshold):
                 vmyX = vXobs + vmyX
                 vmyY = vYobs + vmyY
@@ -88,7 +90,7 @@
             myDistance = math.sqrt(positionError.x*positionError.x + positionError.y*positionError.y)
             vmyX = positionError.x/myDistance
             vmyY = positionError.y/myDistance
-            vmyT = positionError.theta/math.pi
+            vmyT = (positionError.theta/math.pi)/myDistance
 
             obstaclePositionError = currentPosition.diff(expectedObstaclePosition)
             obstaclePositionError.theta = almath.modulo2PI(obstaclePositionError.theta)
