@@ -10,6 +10,7 @@
 
         self.obstacleX = 3
         self.obstacleY = 1
+
         self.obstaclePositionErrorThreshold = 2
 
     def onLoad(self):
@@ -52,43 +53,61 @@
         vmyT = 0
 
         # add repulsive force to a obstacle
-        obstacleDistance = almath.Pose2D(self.obstacleX,self.obstacleY,0)
-        expectedObstaclePosition = initPosition * obstacleDistance
+        obstaclePosition = almath.Pose2D(self.obstacleX,self.obstacleY,0)
+        expectedObstaclePosition = initPosition * obstaclePosition
 
         obstaclePositionError = currentPosition.diff(expectedObstaclePosition)
         obstaclePositionError.theta = almath.modulo2PI(obstaclePositionError.theta)
 
         obstacleDistance = math.sqrt(obstaclePositionError.x * obstaclePositionError.x + obstaclePositionError.y * obstaclePositionError.y )
-        #U_neg = 2/(obstacleDistance)** 2 * ((1/obstacleDistance) - (1/self.obstaclePositionErrorThreshold))
-        U_neg = (self.obstaclePositionErrorThreshold -obstacleDistance)/self.obstaclePositionErrorThreshold
-        vXobs = -(obstaclePositionError.x/obstacleDistance) * U_neg
-        vYobs = -(obstaclePositionError.y/obstacleDistance) * U_neg
+        #U_neg = 0.5/(obstacleDistance)** 2 * ((1/obstacleDistance) - (1/self.obstaclePositionErrorThreshold))
+#        k = 1
+#        U_neg_X = k/(obstaclePositionError.x)** 2 * ((1/abs(obstaclePositionError.x)) - (1/self.obstaclePositionErrorThreshold))
+#        U_neg_Y = k/(obstaclePositionError.y)** 2 * ((1/abs(obstaclePositionError.y)) - (1/self.obstaclePositionErrorThreshold))
+#        U_distance = math.sqrt(U_neg_X * U_neg_X + U_neg_Y * U_neg_Y)
+        #U_neg = (self.obstaclePositionErrorThreshold -obstacleDistance)/self.obstaclePositionErrorThreshold
+
+#        vXobs = -(obstaclePositionError.x/obstacleDistance) * (U_neg_X)/U_distance
+#        vYobs = -(obstaclePositionError.y/obstacleDistance) * (U_neg_Y)/U_distance
+        vXobs = -(obstaclePositionError.x/obstacleDistance)
+        vYobs = -(obstaclePositionError.y/obstacleDistance)
         vTobs = 0
 
         while (abs(positionError.x) > self.positionErrorThresholdPos
             or abs(positionError.y) > self.positionErrorThresholdPos
             or abs (positionError.theta) > self.positionErrorThresholdAng):
             if (abs(obstacleDistance) < self.obstaclePositionErrorThreshold):
-                vmyX = (vXobs + vmyX)
-                vmyY = (vYobs + vmyY)
-                vTot = math.sqrt(vmyX**2 + vmyY**2)
-                vmyX = vmyX/vTot
-                vmyY = vmyY/vTot
-
-#                if (vmyX > 1):
-#                    vmyX = 1
-#                if (vmyX < -1):
-#                    vmyX = -1
-#                if (vmyY > 1):
-#                    vmyY = 1
-#                if (vmyY < -1):
-#                    vmyY = -1
                 print("Obstacle")
+                #U_neg = 0.5/(obstacleDistance)** 2 * ((1/obstacleDistance) - (1/self.obstaclePositionErrorThreshold))
+#                d_x=-((1/abs(obstaclePositionError.x)) - (1/self.obstaclePositionErrorThreshold))
+#                d_y=-((1/abs(obstaclePositionError.y)) - (1/self.obstaclePositionErrorThreshold))
+#                U_neg_X = k/(obstaclePositionError.x)**2 * d_x
+#                U_neg_Y = k/(obstaclePositionError.y)**2 * d_y
+#                U_distance = math.sqrt(U_neg_X * U_neg_X + U_neg_Y * U_neg_Y)
 
+#                vXobs = (obstaclePositionError.x/obstacleDistance) * (U_neg_X)/U_distance
+#                vYobs = (obstaclePositionError.y/obstacleDistance) * (U_neg_Y)/U_distance
+                vXobs = -(obstaclePositionError.x/obstacleDistance)
+                vYobs = -(obstaclePositionError.y/obstacleDistance)
+                vTobs = 0
+                vmyX = (vXobs + vmyX)/2
+                vmyY = (vYobs + vmyY)/2
+
+    #                if (vmyX > 1):
+    #                    vmyX = 1
+    #                if (vmyX < -1):
+    #                    vmyX = -1
+    #                if (vmyY > 1):
+    #                    vmyY = 1
+    #                if (vmyY < -1):
+    #                    vmyY = -1
+
+            print("vmyX: ", str(vmyX))
+            print("vmyY: ", str(vmyY))
             self.motion.moveToward(vmyX, vmyY, vmyT)
 
             currentPosition = almath.Pose2D(self.motion.getRobotPosition(True))
-            print(currentPosition)
+#            print(currentPosition)
 
             positionError = currentPosition.diff(expectedEndPosition)
             positionError.theta = almath.modulo2PI(positionError.theta)
@@ -102,11 +121,6 @@
             obstaclePositionError.theta = almath.modulo2PI(obstaclePositionError.theta)
 
             obstacleDistance = math.sqrt(obstaclePositionError.x*obstaclePositionError.x + obstaclePositionError.y*obstaclePositionError.y)
-            #U_neg = 2/(obstacleDistance)** 2 * ((1/obstacleDistance) - (1/self.obstaclePositionErrorThreshold))
-            U_neg = (self.obstaclePositionErrorThreshold -obstacleDistance)/self.obstaclePositionErrorThreshold
-            vXobs = -(obstaclePositionError.x/obstacleDistance) * U_neg
-            vYobs = -(obstaclePositionError.y/obstacleDistance) * U_neg
-            vTobs = 0
 
         print("Arrived to destination!")
         self.motion.moveToward(0, 0, 0)
