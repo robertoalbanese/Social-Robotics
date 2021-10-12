@@ -2,6 +2,7 @@
 Repository for Social Robotics Exercises
 
 * [Assignment 1](https://github.com/robertoalbanese/Social-Robotics/tree/master/Assignment_1) - Basic Choregraph (Dialog & Animations)
+* [Assignment 2](https://github.com/robertoalbanese/Social-Robotics/tree/master/Assignment_2/Assignment_5_GroupC_) - Obstacle Avoidance w/ Pepper (Potential Field)
 
 
 
